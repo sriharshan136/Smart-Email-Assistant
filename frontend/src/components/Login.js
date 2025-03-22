@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import './Auth.css';
 
 const Login = ({ setIsAuthenticated }) => {
   const [email, setEmail]       = useState('');
@@ -14,7 +16,7 @@ const Login = ({ setIsAuthenticated }) => {
     try {
       const response = await axios.post('/api/auth/login', { email, password });
       localStorage.setItem('token', response.data.token);
-      setIsAuthenticated(true); // Update the global auth state
+      setIsAuthenticated(true);
       navigate('/');
     } catch (err) {
       console.error(err);
@@ -23,7 +25,13 @@ const Login = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div className="auth-container">
+    <motion.div
+      className="auth-container"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }}
+      transition={{ duration: 0.5 }}
+    >
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <label>Email:</label>
@@ -40,13 +48,13 @@ const Login = ({ setIsAuthenticated }) => {
           onChange={(e) => setPassword(e.target.value)} 
           required 
         />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
         <button type="submit">Login</button>
       </form>
       <p>
         Don't have an account? <Link to="/signup">Sign up</Link>
       </p>
-    </div>
+    </motion.div>
   );
 };
 

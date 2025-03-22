@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import './Auth.css';
 
-const Signup = () => {
+const Signup = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError]       = useState('');
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
@@ -22,7 +24,13 @@ const Signup = () => {
   };
 
   return (
-    <div className="auth-container">
+    <motion.div
+      className="auth-container"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.5 }}
+    >
       <h2>Sign Up</h2>
       <form onSubmit={handleSignup}>
         <label>Username:</label>
@@ -46,13 +54,13 @@ const Signup = () => {
           onChange={(e) => setPassword(e.target.value)} 
           required 
         />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
         <button type="submit">Sign Up</button>
       </form>
       <p>
         Already have an account? <Link to="/login">Login</Link>
       </p>
-    </div>
+    </motion.div>
   );
 };
 

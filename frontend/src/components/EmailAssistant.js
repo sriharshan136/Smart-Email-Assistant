@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './EmailAssistant.css';
 
 const tabs = [
@@ -78,14 +79,20 @@ const EmailAssistant = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div className="email-assistant">
+    <motion.div
+      className="email-assistant"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <header>
         <h1>Smart Email Assistant</h1>
         <button onClick={handleLogout} className="logout-btn">Logout</button>
       </header>
       <div className="tabs">
         {tabs.map(tab => (
-          <button
+          <motion.button
             key={tab.id}
             className={activeTab === tab.id ? 'active' : ''}
             onClick={() => {
@@ -93,9 +100,11 @@ const EmailAssistant = ({ setIsAuthenticated }) => {
               setInput('');
               setResult('');
             }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
             {tab.label}
-          </button>
+          </motion.button>
         ))}
       </div>
       <div className="form-container">
@@ -137,11 +146,23 @@ const EmailAssistant = ({ setIsAuthenticated }) => {
       </div>
       {result && (
         <div className="result">
-          <h2>Result:</h2>
-          <p>{result}</p>
+          <motion.h2
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            Result:
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            {result}
+          </motion.p>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
