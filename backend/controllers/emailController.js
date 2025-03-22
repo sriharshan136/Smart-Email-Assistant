@@ -1,7 +1,8 @@
+import dotenv from 'dotenv';
 import EmailDraft from '../models/EmailDraft.js';
 import axios from 'axios';
 
-
+dotenv.config();
 const HF_API_TOKEN = process.env.HF_API_TOKEN;
 const HF_API_URL = process.env.HF_API_URL;
 
@@ -49,7 +50,7 @@ export const draftEmail = async (req, res) => {
 Input: "${input}"
 Email:`;
     const fullDraft = await callMistral(prompt);
-    const draftOutput = extractGeneratedOutput(fullDraft, "Email:");
+    const draftOutput = extractGeneratedOutput(fullDraft, "Email:") || fullDraft;
     
     const emailRecord = new EmailDraft({
       user: userId,
