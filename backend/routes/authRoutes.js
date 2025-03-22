@@ -1,10 +1,13 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const router = express.Router();
-const JWT_SECRET = 'mysecretkey'; // Replace with an environment variable in production
+
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET; // Replace with an environment variable in production
 
 // Signup Endpoint
 router.post('/signup', async (req, res) => {

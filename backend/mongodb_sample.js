@@ -1,8 +1,6 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
-const uri = "mongodb+srv://sriharshan136:watermelon@cluster1.meeij.mongodb.net/?appName=Cluster1";
-
-// mongodb+srv://sriharshan136:<watermelon>@cluster1.meeij.mongodb.net/?appName=Cluster1
+const uri = process.env.MONGO_URI;
 
 const client = new MongoClient(uri, {
   serverApi: {

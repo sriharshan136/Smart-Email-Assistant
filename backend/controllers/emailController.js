@@ -2,8 +2,8 @@ import EmailDraft from '../models/EmailDraft.js';
 import axios from 'axios';
 
 
-const HF_API_TOKEN = process.env.HF_API_TOKEN || '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';
-const HF_API_URL = 'https://api-inference.huggingface.co/models/mistralai/Mistral-Nemo-Instruct-2407';
+const HF_API_TOKEN = process.env.HF_API_TOKEN;
+const HF_API_URL = process.env.HF_API_URL;
 
 
 // Helper function to extract output after a marker

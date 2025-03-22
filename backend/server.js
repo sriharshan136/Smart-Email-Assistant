@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -8,6 +9,8 @@ import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 
+dotenv.config();
+
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
@@ -17,7 +20,7 @@ app.use('/api/emails', emailRoutes);
 app.use('/api/auth', authRoutes);
 
 // MongoDB connection (update with your credentials)
-const uri = 'mongodb+srv://sriharshan136:watermelon@cluster1.meeij.mongodb.net/?appName=Cluster1';
+const uri = process.env.MONGO_URI;
 
 mongoose.connect(uri)
   .then(() => console.log('Connected to MongoDB Atlas'))
